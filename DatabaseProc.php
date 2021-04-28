@@ -68,6 +68,15 @@ class DatabaseProc extends DatabaseConnection {
         return $result; 
     }
     
+    public function insertById($mode, $level, $try){
+        $sql = "INSERT INTO estaditiques (modalitat, nivell, intents) VALUES ( '$mode', $level, $try)";
+        $result = null;
+        if ($this->connection != null) {
+            $result = mysqli_query($this->connection, $sql);
+        }
+        return $result; 
+    }
+    
     public function updateById($lastId, $mode, $level, $try){
         $sql = "UPDATE estadistiques SET id = $lastId, modalitat = $mode, nivell = $level, intents = $try, data_partida = current_date()";
         $result = null;

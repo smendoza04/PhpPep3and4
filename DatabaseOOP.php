@@ -26,7 +26,7 @@ class DatabaseOOP extends DatabaseConnection {
     }
 
     public function insert($modalitat, $nivell, $intents): int {
-        $sql = "INSERT INTO estadistiques (modalitat, nivell, intents) VALUES ('$modalitat', $nivell, $intents)";
+        $sql = "INSERT INTO ESTADISTIQUES (MODALITAT, NIVELL, INTENTS) VALUES ('$modalitat', $nivell, $intents)";
         if ($this->connection != null) {
             if ($this->connection->query($sql) === TRUE) {
                 return $this->connection->insert_id;
@@ -64,7 +64,16 @@ class DatabaseOOP extends DatabaseConnection {
     }
     
     public function selectById($lastId){
-        $sql = "SELECT id, modalitat, nivell, data_partida, intents FROM estadistiques WHERE id = $lastId";
+        $sql = "SELECT ID, MODALITAT, NIVELL, DATA_PARTIDA, intents FROM estadistiques WHERE id = $lastId;";
+        $result = null;
+        if ($this->connection != null) {
+            $result = $this->connection->query($sql, MYSQLI_USE_RESULT);
+        }
+        return $result;
+    }
+    
+    public function insertById($mode, $level, $try){
+        $sql = "INSERT INTO ESTADISTIQUES (MODALITAT, NIVELL, INTENTS) VALUES ( '$mode', $level, $try)";
         $result = null;
         if ($this->connection != null) {
             $result = $this->connection->query($sql, MYSQLI_USE_RESULT);

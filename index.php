@@ -60,7 +60,7 @@ and open the template in the editor.
                 }
             }
         ?>
-        <button id="credits">Credits</button>
+        <button class="btn credit" id="credits">Credits</button>
     </body>
     
     <script>

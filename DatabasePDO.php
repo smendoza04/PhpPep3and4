@@ -64,12 +64,8 @@ class DatabasePDO extends DatabaseConnection {
     
     
     public function deleteById($lastId){
-        $stmt = $this->connection->prepare("DELETE FROM estadistiques WHERE id = :lastId");
-        $stmt->bindParam(':lastId', $lastId);
-        $stmt->execute();
-        // set the resulting array to associative
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt;
+        $sql = "DELETE FROM estadistiques WHERE id = $lastId;";
+        $this->connection->exec($sql);
     }
     
     public function selectById($lastId){
@@ -78,20 +74,27 @@ class DatabasePDO extends DatabaseConnection {
         $stmt->execute();
         // set the resulting array to associative
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt;
+    }
+    
+    public function insertById($mode, $level, $try){
+        $sql = "INSERT INTO estadistiques (modalitat, nivell, intents) VALUES ('$mode', $level, $try)";
+        $this->connection->exec($sql);
     }
     
     public function updateById($lastId, $mode, $level, $try){
         //UPDATE estadistiques SET id = $lastId, modalitat = $mode, nivell = $level, intents = $try, data_partida = current_date()
-        $stmt = $this->connection->prepare("UPDATE estadistiques SET id = :lastId, modalitat = :mode, nivell = :level, intents = :try, data_partida = current_date()");
-        $stmt->bindParam(':lastId', $lastId);
-        $stmt->bindParam(':mode', $mode);
-        $stmt->bindParam(':level', $level);
-        $stmt->bindParam(':try', $try);
-        $stmt->execute();
-        // set the resulting array to associative
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        return $stmt;
+//        $stmt = $this->connection->prepare("UPDATE ESTADISTIQUES SET ID = :lastId, MODALITAT = :mode, NIVELL = :level, INTENTS = :try, DATA_PARTIDA = current_date() WHERE ID = :lastId");
+//        $stmt->bindParam(':lastId', $lastId);
+//        $stmt->bindParam(':mode', $mode);
+//        $stmt->bindParam(':level', $level);
+//        $stmt->bindParam(':try', $try);
+//        $stmt->execute();
+//        // set the resulting array to associative
+//        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//        return $stmt;
+        
+        $sql = "UPDATE estadistiques SET id = $lastId, modalitat = '$mode', nivell = $level, intents = $try WHERE id = $lastId;";
+        $this->connection->exec($sql);
         
     }
     

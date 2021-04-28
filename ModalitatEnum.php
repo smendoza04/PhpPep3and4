@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Donat que no hi ha enums en PHP encara, la classe ModalitatEnum els emula
  *
